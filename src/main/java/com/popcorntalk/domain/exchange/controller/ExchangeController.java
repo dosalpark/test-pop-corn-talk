@@ -28,7 +28,7 @@ public class ExchangeController {
     public ResponseEntity<Void> createExchange(
         @AuthenticationPrincipal UserDetailsImpl userDetails,
         @PathVariable Long productId
-    ) {
+    ) throws InterruptedException {
         exchangeService.createExchange(
             userDetails.getUser().getId(),
             productId

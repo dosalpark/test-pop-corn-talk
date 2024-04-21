@@ -22,8 +22,10 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
     @DistributedLock(lockName = "point", identifier = "userId")
-    public void deductPointForPurchase(Long userId, int price) {
+    public void deductPointForPurchase(Long userId, int price) throws InterruptedException {
 
+
+        Thread.sleep(1000000000L);
         Point userPoint = getPoint(userId);
         int previousPoint = userPoint.getPoint();
         int newPointBalance = userPoint.getPoint() - price;
@@ -74,6 +76,7 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
+    @DistributedLock(lockName = "point", identifier = "userId")
     public Point getPoint(Long userId) {
         return pointRepository.findByUserId(userId)
             .orElseThrow(() -> new NotFoundException(ErrorCode.POINT_NOT_FOUND));

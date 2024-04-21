@@ -10,7 +10,7 @@ public interface PointService {
      * @param userId         포인트 차감할 유저 Id
      * @param purchaseAmount 상품 금액
      */
-    void deductPointForPurchase(Long userId, int purchaseAmount);
+    void deductPointForPurchase(Long userId, int purchaseAmount) throws InterruptedException;
 
     /**
      * @param userId 포인트 조회할 유저 Id

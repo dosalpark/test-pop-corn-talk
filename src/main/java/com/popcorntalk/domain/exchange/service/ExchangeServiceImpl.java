@@ -37,8 +37,8 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    @DistributedLock(lockName = "product", identifier = "productId", waitTime = 60, leaseTime = 4)
-    public void createExchange(Long userId, Long productId) {
+    @DistributedLock(lockName = "product", identifier = "productId")
+    public void createExchange(Long userId, Long productId) throws InterruptedException {
         Product product = productService.getProduct(productId);
         pointService.checkUserPoint(userId, product.getPrice());
 
@@ -47,6 +47,7 @@ public class ExchangeServiceImpl implements ExchangeService {
         pointService.deductPointForPurchase(userId, product.getPrice());
         Exchange exchange = Exchange.createOf(userId, product.getId(), product.getVoucherImage());
         exchangeRepository.save(exchange);
+
 
         notificationService.notifyPurchase(userId, ADMIN_EMAIL, product.getVoucherImage());
     }

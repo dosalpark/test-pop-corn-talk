@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    @DistributedLock(lockName = HASH_KEY, identifier = "productId", waitTime = 60, leaseTime = 4)
+    @DistributedLock(lockName = HASH_KEY, identifier = "productId")
     public void deleteProduct(Long productId,
         Long userId) {
         userService.validateAdminUser(userId);
@@ -71,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    @DistributedLock(lockName = HASH_KEY, identifier = "productId", waitTime = 60, leaseTime = 4)
+    @DistributedLock(lockName = HASH_KEY, identifier = "productId")
     public void updateProduct(Long productId, ProductUpdateRequestDto productUpdateRequestDto,
         Long userId) {
         userService.validateAdminUser(userId);
@@ -104,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    @DistributedLock(lockName = HASH_KEY, identifier = "productId", waitTime = 60, leaseTime = 4)
+    @DistributedLock(lockName = HASH_KEY, identifier = "productId")
     public void updateAmount(Long productId) {
         int amount = Integer.parseInt(
             Objects.requireNonNull(hashOperations.get(HASH_KEY, String.valueOf(productId))));
