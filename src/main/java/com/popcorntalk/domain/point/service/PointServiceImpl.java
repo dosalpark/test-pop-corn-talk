@@ -2,6 +2,7 @@ package com.popcorntalk.domain.point.service;
 
 import com.popcorntalk.domain.point.entity.Point;
 import com.popcorntalk.domain.point.repository.PointRepository;
+import com.popcorntalk.global.annotation.DistributedLock;
 import com.popcorntalk.global.exception.ErrorCode;
 import com.popcorntalk.global.exception.customException.InsufficientPointException;
 import com.popcorntalk.global.exception.customException.NotFoundException;
@@ -20,6 +21,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
+    @DistributedLock(lockName = "point", identifier = "userId")
     public void deductPointForPurchase(Long userId, int price) {
 
         Point userPoint = getPoint(userId);
@@ -33,6 +35,7 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
+    @DistributedLock(lockName = "point", identifier = "userId")
     public void checkUserPoint(Long userId, int price) {
 
         Point userPoint = getPoint(userId);
@@ -44,6 +47,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
+    @DistributedLock(lockName = "point", identifier = "userId")
     public void rewardPointForSignUp(Long userId) {
 
         Point signupPoint = Point.createOf(userId, SIGNUP_REWARD);
@@ -56,6 +60,7 @@ public class PointServiceImpl implements PointService {
 
     @Override
     @Transactional
+    @DistributedLock(lockName = "point", identifier = "userId")
     public void earnPoint(Long userId, int point) {
 
         Point userPoint = getPoint(userId);
