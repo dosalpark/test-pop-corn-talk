@@ -22,10 +22,7 @@ public class PointServiceImpl implements PointService {
     @Override
     @Transactional
 //    @DistributedLock(lockName = "point", identifier = "userId")
-    public void deductPointForPurchase(Long userId, int price) throws InterruptedException {
-
-
-//        Thread.sleep(1000000000L);
+    public void deductPointForPurchase(Long userId, int price) {
         Point userPoint = getPoint(userId);
         int previousPoint = userPoint.getPoint();
         int newPointBalance = userPoint.getPoint() - price;
