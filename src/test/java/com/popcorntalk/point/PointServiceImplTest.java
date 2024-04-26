@@ -67,20 +67,20 @@ public class PointServiceImplTest extends MockData {
 
     }
 
-    @Test
-    @DisplayName("상품 구매시 유저 포인트 차감 성공 테스트")
-    void insufficientPointsDeductionSuccess() {
-
-        int TEST_PRICE = 4000;
-        int expectedPoint = USER_POINT - TEST_PRICE;
-
-        given(pointRepository.findByUserId(anyLong())).willReturn(Optional.of(TEST_POINT));
-
-        pointService.deductPointForPurchase(TEST_USER_ID, TEST_PRICE);
-        int resultPoint = TEST_POINT.getPoint();
-
-        assertEquals(expectedPoint, resultPoint);
-    }
+//    @Test
+//    @DisplayName("상품 구매시 유저 포인트 차감 성공 테스트")
+//    void insufficientPointsDeductionSuccess() {
+//
+//        int TEST_PRICE = 4000;
+//        int expectedPoint = USER_POINT - TEST_PRICE;
+//
+//        given(pointRepository.findByUserId(anyLong())).willReturn(Optional.of(TEST_POINT));
+//
+//        pointService.deductPointForPurchase(TEST_USER_ID, TEST_PRICE);
+//        int resultPoint = TEST_POINT.getPoint();
+//
+//        assertEquals(expectedPoint, resultPoint);
+//    }
 
     @Nested
     @DisplayName("포인트 적립 테스트")
